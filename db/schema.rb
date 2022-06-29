@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_18_152629) do
+ActiveRecord::Schema.define(version: 2022_06_28_114800) do
 
   create_table "comments", force: :cascade do |t|
     t.string "name", default: "anonym"
@@ -21,9 +21,50 @@ ActiveRecord::Schema.define(version: 2018_04_18_152629) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "donations", force: :cascade do |t|
+    t.string "user_id"
+    t.string "group_id"
+    t.string "title"
+    t.text "image"
+    t.text "description"
+    t.float "amount"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.string "host_id"
+    t.text "avatar"
+    t.float "total_payments"
+    t.float "total_donations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "user_id"
+    t.string "group_id"
+    t.string "title"
+    t.text "image"
+    t.text "description"
+    t.float "amount"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "title"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_group_refs", force: :cascade do |t|
+    t.string "user_id"
+    t.string "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
