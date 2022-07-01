@@ -7,12 +7,27 @@ class GroupsController < ApplicationController
 
   def add_member
     authorize!(:read)
-    group = Group.find_by_id(add_member_params[:group_id])
-    render(json: { data: group, code: 0 })
+    params.require([:group_id, :user_email])
+    group = Group.find(params[:group_id])
+    if group.host_id.to_s != @current_user.id.to_s
+      render(json: { error: "Unauthorized" }, status: 401)
+      return
+    end
+    member = User.where(email: params[:user_email])
+    if member.nil?
+      member = User.create!(email: params[:user_email], password: "0", is_linked: false)
+      member.save
+    end
+    user_group_ref = UserGroupRef.new(user_id: member.first.id, group_id: group.id)
+    user_group_ref.save
+    render(json: { data: "success", code: 0 })
   end
 
   def show
-   
+    authorize!(:read)
+    group = Group.find(params[:id])
+    count_members = UserGroupRef.where(group_id: group.id).count(:id)
+    render(json: { data: group, code: 0, count: count_members })
   end
 
   def create
@@ -34,8 +49,5 @@ class GroupsController < ApplicationController
   private
   def group_params
     params.permit(:name, :avatar)
-  end
-  def add_member_params
-    params.require([:group_id, :user_id])
   end
 end

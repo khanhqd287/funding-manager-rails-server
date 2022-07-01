@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_28_114800) do
+ActiveRecord::Schema.define(version: 2022_07_01_141533) do
 
   create_table "comments", force: :cascade do |t|
     t.string "name", default: "anonym"
@@ -75,6 +75,9 @@ ActiveRecord::Schema.define(version: 2022_06_28_114800) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "phone"
+    t.boolean "is_linked", default: true
   end
 
 end

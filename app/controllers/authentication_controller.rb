@@ -12,7 +12,7 @@ class AuthenticationController < ApplicationController
         render(json: { error: command.errors }, status: :unauthorized)
       end
     rescue ActiveRecord::RecordNotFound  
-      @user = @user = User.create!(email: params[:email], password: params[:password])
+      @user = User.create!(email: params[:email], password: params[:password])
       if @user.save
         command = AuthenticateUser.call(params[:email], params[:password])
         if command.successful?
