@@ -23,6 +23,13 @@ class GroupsController < ApplicationController
     render(json: { data: "success", code: 0 })
   end
 
+  def list_member
+    authorize!(:read)
+    params.require([:group_id])
+    count_members = Group.joins(:user).where(group_id: params[:group_id])
+    render(json: { data: [], code: 0, count: count_members })
+  end
+
   def show
     authorize!(:read)
     group = Group.find(params[:id])
