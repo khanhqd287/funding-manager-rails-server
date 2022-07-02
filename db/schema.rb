@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_141533) do
   end
 
   create_table "donations", force: :cascade do |t|
-    t.string "user_id"
-    t.string "group_id"
+    t.integer "user_id"
+    t.integer "group_id"
     t.string "title"
     t.text "image"
     t.text "description"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2022_07_01_141533) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.string "host_id"
+    t.integer "host_id"
     t.text "avatar"
     t.float "total_payments"
     t.float "total_donations"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_141533) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.string "user_id"
-    t.string "group_id"
+    t.integer "user_id"
+    t.integer "group_id"
     t.string "title"
     t.text "image"
     t.text "description"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_141533) do
   end
 
   create_table "user_group_refs", force: :cascade do |t|
-    t.string "user_id"
-    t.string "group_id"
+    t.integer "user_id"
+    t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,8 +1,8 @@
 class CreatePayments < ActiveRecord::Migration[5.1]
   def change
     create_table :payments do |t|
-      t.string :user_id
-      t.string :group_id
+      t.integer :user_id
+      t.integer :group_id
       t.string :title
       t.text :image
       t.text :description
