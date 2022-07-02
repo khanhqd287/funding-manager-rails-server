@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
     authorize!(:read)
     params.require([:group_id, :user_email])
     group = Group.find(params[:group_id])
-    if group.host_id.to_s != @current_user.id.to_s
+    if group.host_id != @current_user.id
       render(json: { error: "Unauthorized" }, status: 401)
       return
     end
@@ -33,7 +33,8 @@ class GroupsController < ApplicationController
   def create
     authorize!(:read)
     @group = Group.new(name: group_params[:name], avatar: group_params[:avatar], 
-                        host_id: @current_user.id, total_payments: 0, total_donations: 0)
+                        host_id: @current_user.id, total_payments: 0, total_donations: 0, 
+                        user_ids: [@current_user.id])
     @group.save
     render(json: { data: @group, code: 0 })
   end
